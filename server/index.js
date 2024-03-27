@@ -5,6 +5,9 @@ const port = process.env.PORT
 const path = require('path')
 const { sequelize, Sequelize } = require('./models')
 
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+
 app.use(express.static('../client/dist'))
 
 app.get('/', (req, res) => {
