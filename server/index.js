@@ -8,11 +8,13 @@ const { sequelize, Sequelize } = require('./models')
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-app.use(express.static('./client/build'))
+// app.use(express.static('./dist'))
+
+// localhost:3000/index.html
 
 app.get('/', (req, res) => {
   const options = {
-    root: path.join(__dirname, './client/build/'),
+    root: path.join(__dirname, './dist'),
     dotfiles: 'deny',
     headers: {
       'x-timestamp': Date.now(),
