@@ -32,5 +32,23 @@ app.listen(port, async () => {
   } catch (error) {
     console.error('Unable to connect to the database:', error);
   }
+  try {
+    await sequelize.sync();
+    console.log('All models were synchronized successfully.');
+  } catch (e) {
+    const {exec} = require('child_process');
+
+    await new Promise((resolve, reject) => {
+      const migrate = exec(
+        'sequelize db:migrate',
+        {env: process.env},
+        err => (err ? reject(err): resolve())
+      );
+
+      // Forward stdout+stderr to this process
+      migrate.stdout.pipe(process.stdout);
+      migrate.stderr.pipe(process.stderr);
+    });
+  }
   console.log(`Media app listening on port ${port}`)
 })
