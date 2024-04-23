@@ -8,9 +8,7 @@ const { sequelize, Sequelize } = require('./models')
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-// app.use(express.static('./dist'))
-
-// localhost:3000/index.html
+app.use(express.static('./dist'))
 
 app.get('/', (req, res) => {
   const options = {
